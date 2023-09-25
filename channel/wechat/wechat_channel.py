@@ -108,8 +108,15 @@ class WechatChannel(ChatChannel):
 
     def __init__(self):
         super().__init__()
-        self.receivedMsgs = ExpiredDict(60 * 60)
+        self.receivedMsgs = ExpiredDict(60 * 60 * 24)
 
+    def login_callback(self):
+        print('Login successful')
+
+    def logout_callback(self):
+        print('Logout')
+        self.startup()
+        
     def startup(self):
         itchat.instance.receivingRetryCount = 600  # 修改断线超时时间
         # login by scan QRCode
